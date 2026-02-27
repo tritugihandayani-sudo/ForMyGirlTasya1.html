@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Tasya - Brilian</title>
+    <style>
+        /* Import Font Romantis */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animasi Latar Belakang Gradient */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Container Utama */
+        .container {
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        /* Judul */
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeInDown 1.5s ease forwards;
+        }
+
+        .age {
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInDown 1.5s ease 0.5s forwards;
+        }
+
+        /* Bagian Amplop / Surat */
+        .envelope-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin: 0 auto;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+            perspective: 1000px;
+        }
+
+        /* Visual Amplop */
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.5s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+
+        .envelope-text {
+            font-size: 1.2rem;
+            color: #ff6b81;
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        /* Bagian Dalam Amplop (Kertas Surat) */
+        .letter {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 5;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: inset 0 0 20px #ffe4e1;
+        }
+
+        /* Efek Buka Amplop */
+        .envelope-container.open .letter {
+            top: -120px; /* Kertas naik keluar */
+            opacity: 1;
+            visibility: visible;
+            transform: rotate(0deg);
+        }
+
+        .envelope-container.open .envelope {
+            opacity: 0; /* Menyembunyikan amplop kertas luar saat terbuka */
+            pointer-events: none;
+        }
+
+        /* Isi Surat */
+        .letter h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff4757;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .letter p {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .signature {
+            margin-top: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #2f3542;
+        }
+
+        /* Hati-hati Melayang */
+        .heart {
+            position: absolute;
+            color: #ff6b81;
+            opacity: 0.7;
+            animation: fly 10s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fly {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .letter p { font-size: 0.8rem; }
+        }
+
+        /* Animasi Masuk */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Hati-hati Melayang Background -->
+    <div id="hearts-container"></div>
+
+    <div class="container">
+        <h1>Happy Birthday</h1>
+        <div class="age">Tasya 18th</div>
+
+        <!-- Amplop -->
+        <div class="envelope-container" onclick="openLetter()">
+            <div class="envelope">
+                <span class="envelope-text">Buka Surat Ini ❤️</span>
+            </div>
+            
+            <!-- Isi Surat -->
+            <div class="letter">
+                <h2>Untuk Tasya,</h2>
+                <p>Hai sayang,</p>
+                <p>Selamat ulang tahun yang ke-18! Hari ini adalah hari yang sangat spesial karena Tuhan memberikan anugerah yang indah ini padamu.</p>
+                <p>Terima kasih sudah hadir dalam hidupku. Kamu adalah warna-warni dalam hidupku. Doaku yang paling tulus adalah kita bisa terus bersama, melewati semua suka dan duka, dan yang paling utama adalah <strong>semoga kita bisa lanjut sampai ke jenjang pernikahan suatu hari nanti.</strong></p>
+                <p>Selamat bertambah usia, semakin dewasa dan semakin dekat dengan Allah.</p>
+                <div class="signature">Dengan cinta,<br>Brilian</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk membuka surat
+        function openLetter() {
+            const envelope = document.querySelector('.envelope-container');
+            envelope.classList.add('open');
+        }
+
+        // Script untuk membuat hati melayang
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 20;
+
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                
+                // Posisi acak
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                
+                // Ukuran acak
+                const size = Math.random() * 20 + 10 + 'px';
+                heart.style.fontSize = size;
+
+                // Durasi animasi acak
+                const duration = Math.random() * 5 + 5 + 's';
+                heart.style.animationDuration = duration;
+
+                // Delay acak agar tidak muncul bersamaan
+                heart.style.animationDelay = Math.random() * 5 + 's';
+
+                container.appendChild(heart);
+            }
+        }
+
+        createHearts();
+    </script>
+</body>
+</html>
